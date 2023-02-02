@@ -1,0 +1,27 @@
+html {
+  font-size: 14px;
+}
+
+.show input {
+    opacity: 1;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+
+  .show input {
+      opacity: 1;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+

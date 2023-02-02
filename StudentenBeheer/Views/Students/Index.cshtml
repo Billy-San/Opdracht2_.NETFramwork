@@ -1,0 +1,94 @@
+﻿@model StudentsIndexViewModel;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<p>
+ <form asp-controller="Students" asp-action="Index" method="get">
+        <small>Search Name or lastname </small> <input type="text" name="nameFilter"/>
+         
+   @*        <div class="input-field col s12">
+    <select  name="genderfilter" asp-items="@ViewBag.genderId">
+      <option value="" disabled selected>Choose your option</option>
+      <option value="">All</option>
+    </select>
+    
+  </div>*@
+        
+  <button class="waves-effect waves-light btn-small" type="submit" name="action">Submit
+    
+  </button>
+    </form>
+
+<form asp-controller="Students" asp-action="Index" method="get"> 
+   <div class="input-field col s3">
+          
+    <small>Gender:</small> 
+    <select  name="genderfilter" asp-items="@ViewBag.genderId" class="">
+       <option value="" disabled="disabled" selected="selected">Choose your option</option>
+      <option value="">All</option>
+    </select>
+      </div>    
+      
+  <button class="waves-effect waves-light btn-small" type="submit" name="action">
+      Search gender
+  </button>
+</form>
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-orderBy="@ViewBag.NameField">@Html.DisplayNameFor(model => model.FilteredStudents[0].Name)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-orderBy="@ViewBag.LastName">@Html.DisplayNameFor(model => model.FilteredStudents[0].Lastname)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-orderBy="@ViewBag.BirthDay">@Html.DisplayNameFor(model => model.FilteredStudents[0].Birthday)</a>
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FilteredStudents[0].Gender)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var student in Model.FilteredStudents) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => student.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => student.Lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => student.Birthday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => student.Gender.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@student.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@student.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@student.Id">Delete</a> |
+                <a asp-action="Create" asp-controller="Inschrijvingens" asp-route-id="@student.Id" asp-route-welke="1">Inschrijving </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<script defer>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+});
+</script>
